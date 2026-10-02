@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELOCITY LUXE | Next-Gen Premium Footwear</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        gold: {
+                            400: '#FACC15',
+                            500: '#EAB308',
+                            600: '#CA8A04',
+                        },
+                        dark: {
+                            900: '#0B0C10',
+                            800: '#12141C',
+                            700: '#1F2430',
+                            600: '#2A3042'
+                        },
+                        neon: {
+                            lime: '#CCFF00',
+                            cyan: '#00F0FF',
+                            orange: '#FF5500'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0B0C10;
+            color: #F3F4F6;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism effects */
+        .glass-nav {
+            background: rgba(11, 12, 16, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0C10;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A3042;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3B4259;
+        }
+
+        /* Hotspot Ripple */
+        .hotspot-pulse {
+            position: absolute;
+            border-radius: 50%;
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(204, 255, 0, 0.7); }
+            70% { transform: scale(1.4); box-shadow: 0 0 0 14px rgba(204, 255, 0, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(204, 255, 0, 0); }
+        }
+
+        /* Custom glow effects */
+        .glow-neon-lime { box-shadow: 0 0 25px rgba(204, 255, 0, 0.3); }
+        .glow-neon-cyan { box-shadow: 0 0 25px rgba(0, 240, 255, 0.3); }
+        .glow-neon-orange { box-shadow: 0 0 25px rgba(255, 85, 0, 0.3); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER & NAVBAR -->
+    <header id="main-header" class="fixed top-0 left-0 w-full z-50 glass-nav transition-all duration-300 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 bg-gradient-to-tr from-white to-gray-500 rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                    <i data-lucide="zap" class="w-6 h-6 text-black fill-black"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-black tracking-widest text-white leading-none">VELOCITY</span>
+                    <span class="text-[10px] font-semibold tracking-[0.3em] text-neon-lime">LUXE FOOTWEAR</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
+                <a href="#hero" class="hover:text-neon-lime transition-colors">Inicio</a>
+                <a href="#collections" class="hover:text-neon-lime transition-colors">Colecciones</a>
+                <a href="#customizer" class="hover:text-neon-lime transition-colors">Personalizador 3D</a>
+                <a href="#technology" class="hover:text-neon-lime transition-colors">Innovación</a>
+                <a href="#ambassadors" class="hover:text-neon-lime transition-colors">Atletas</a>
+            </nav>
+
+            <!-- Actions Header (Search, Cart, Menu) -->
+            <div class="flex items-center gap-4">
+                <!-- Search Button -->
+                <button onclick="toggleSearchModal()" class="p-2.5 rounded-full hover:bg-white/10 text-gray-300 hover:text-white transition-all">
+                    <i data-lucide="search" class="w-5 h-5"></i>
+                </button>
+
+                <!-- Cart Button -->
+                <button onclick="toggleCartModal()" class="relative p-2.5 rounded-full hover:bg-white/10 text-gray-300 hover:text-white transition-all">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                    <span id="cart-count-badge" class="absolute -top-1 -right-1 bg-neon-lime text-black text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center scale-0 transition-transform duration-300">0</span>
+                </button>
+
+                <!-- Mobile Menu Toggle Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-full hover:bg-white/10 text-gray-300">
+                    <i data-lucide="menu" id="menu-icon" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-white/10 bg-dark-900/95 px-6 py-6 space-y-4">
+            <a href="#hero" onclick="toggleMobileMenu()" class="block text-lg font-medium hover:text-neon-lime">Inicio</a>
+            <a href="#collections" onclick="toggleMobileMenu()" class="block text-lg font-medium hover:text-neon-lime">Colecciones</a>
+            <a href="#customizer" onclick="toggleMobileMenu()" class="block text-lg font-medium hover:text-neon-lime">Personalizador 3D</a>
+            <a href="#technology" onclick="toggleMobileMenu()" class="block text-lg font-medium hover:text-neon-lime">Innovación</a>
+            <a href="#ambassadors" onclick="toggleMobileMenu()" class="block text-lg font-medium hover:text-neon-lime">Atletas</a>
+        </div>
+    </header>
+
+    <!-- SEARCH MODAL OVERLAY -->
+    <div id="search-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-start justify-center pt-24 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="w-full max-w-2xl px-4">
+            <div class="relative">
+                <input type="text" id="search-input" onkeyup="handleSearch(this.value)" placeholder="Buscar zapatillas, colecciones o tecnología..." class="w-full bg-dark-800 border-2 border-white/20 rounded-2xl py-4 pl-14 pr-12 text-lg text-white placeholder-gray-400 focus:outline-none focus:border-neon-lime transition-all">
+                <i data-lucide="search" class="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-400"></i>
+                <button onclick="toggleSearchModal()" class="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-gray-400 hover:text-white">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <!-- Live Search Results -->
+            <div id="search-results" class="mt-4 bg-dark-800/90 rounded-2xl border border-white/10 overflow-hidden hidden max-h-96 overflow-y-auto p-2">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT WRAPPER -->
+    <main class="pt-20">
+
+        <!-- SECTION 1: INTERACTIVE HERO SECTION WITH MODEL SWITCHER -->
+        <section id="hero" class="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
+            <!-- Dynamic Background Glow -->
+            <div id="hero-bg-glow" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-neon-lime/10 rounded-full blur-[120px] pointer-events-none transition-all duration-700"></div>
+
+            <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+                
+                <!-- Left Column: Hero Text Info -->
+                <div class="lg:col-span-5 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/15 bg-white/5 backdrop-blur-md">
+                        <span class="w-2 h-2 rounded-full bg-neon-lime animate-ping"></span>
+                        <span id="hero-badge" class="text-xs font-bold uppercase tracking-wider text-neon-lime">Lanzamiento Exclusivo 2026</span>
+                    </div>
+
+                    <h1 id="hero-title" class="text-5xl sm:text-6xl xl:text-7xl font-black uppercase tracking-tight leading-none">
+                        VELOCITY <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-600">ALPHA X</span>
+                    </h1>
+
+                    <p id="hero-desc" class="text-gray-400 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
+                        Redefiniendo los límites del alto rendimiento urbano. Placa de fibra de carbono integrada con amortiguación Air-Foam Ultra.
+                    </p>
+
+                    <!-- Price & CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <div class="text-3xl font-black tracking-tight" id="hero-price">Q1,890.00</div>
+                        <div class="flex items-center gap-3 w-full sm:w-auto">
+                            <button id="hero-add-cart-btn" onclick="addHeroToCart()" class="flex-1 sm:flex-none px-8 py-4 bg-neon-lime text-black font-bold rounded-2xl hover:bg-lime-400 transition-all flex items-center justify-center gap-3 group shadow-lg shadow-neon-lime/20">
+                                <span>Añadir al Carrito</span>
+                                <i data-lucide="shopping-bag" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                            </button>
+                            <a href="#customizer" class="p-4 bg-white/5 hover:bg-white/10 border border-white/15 rounded-2xl transition-all" title="Personalizar">
+                                <i data-lucide="sliders" class="w-5 h-5 text-white"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Color / Model Variants Selector -->
+                    <div class="pt-6 border-t border-white/10">
+                        <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">Selecciona Edición Especial:</p>
+                        <div class="flex items-center justify-center lg:justify-start gap-4" id="hero-variant-selector">
+                            <!-- Injected dynamically via JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive Shoe Canvas & Hotspots -->
+                <div class="lg:col-span-7 relative flex items-center justify-center">
+                    <div class="relative w-full max-w-lg lg:max-w-xl aspect-square flex items-center justify-center">
+                        <!-- Background Circle Motif -->
+                        <div class="absolute inset-0 border border-white/10 rounded-full animate-spin-slow"></div>
+                        <div class="absolute inset-8 border border-dashed border-white/10 rounded-full"></div>
+
+                        <!-- Main Shoe Interactive Image -->
+                        <img id="hero-shoe-img" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1000&q=80" alt="Velocity Luxe Shoe" class="w-full h-auto object-contain z-20 drop-shadow-[0_25px_35px_rgba(0,0,0,0.8)] transition-all duration-700 transform hover:scale-105 animate-float">
+
+                        <!-- Hotspot 1: Carbon Plate (Suela) -->
+                        <div class="absolute top-[65%] left-[25%] z-30 group cursor-pointer" onclick="showHotspotInfo('Carbon Fiber Plate', 'Proporciona una reactividad de retorno de energía del 88% en cada pisada.')">
+                            <div class="relative flex items-center justify-center">
+                                <span class="hotspot-pulse w-8 h-8 bg-neon-lime"></span>
+                                <span class="w-4 h-4 bg-neon-lime rounded-full border-2 border-black flex items-center justify-center">
+                                    <i data-lucide="plus" class="w-3 h-3 text-black"></i>
+                                </span>
+                            </div>
+                            <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block w-48 p-3 rounded-xl glass-card text-xs text-white z-40 text-center pointer-events-none shadow-xl border border-neon-lime/30">
+                                <p class="font-bold text-neon-lime">Placa de Carbono</p>
+                                <p class="text-[10px] text-gray-300">Respuesta ultrasensible</p>
+                            </div>
+                        </div>
+
+                        <!-- Hotspot 2: Breathable Mesh (Capellada) -->
+                        <div class="absolute top-[35%] left-[55%] z-30 group cursor-pointer" onclick="showHotspotInfo('Malla VeloMesh 3D', 'Tejido termorregulador ultra ligero que se adapta como una segunda piel.')">
+                            <div class="relative flex items-center justify-center">
+                                <span class="hotspot-pulse w-8 h-8 bg-neon-lime"></span>
+                                <span class="w-4 h-4 bg-neon-lime rounded-full border-2 border-black flex items-center justify-center">
+                                    <i data-lucide="plus" class="w-3 h-3 text-black"></i>
+                                </span>
+                            </div>
+                            <div class="absolute top-full left-1/2 -translate-x-1/2 mt-2 hidden group-hover:block w-48 p-3 rounded-xl glass-card text-xs text-white z-40 text-center pointer-events-none shadow-xl border border-neon-lime/30">
+                                <p class="font-bold text-neon-lime">Capellada VeloMesh</p>
+                                <p class="text-[10px] text-gray-300">Transpirabilidad superior</p>
+                            </div>
+                        </div>
+
+                        <!-- Hotspot 3: Heel Lock (Talón) -->
+                        <div class="absolute top-[48%] right-[20%] z-30 group cursor-pointer" onclick="showHotspotInfo('Anclaje de Talón ExoLock', 'Soporte anatómico reforzado para giros rápidos y estabilidad extrema.')">
+                            <div class="relative flex items-center justify-center">
+                                <span class="hotspot-pulse w-8 h-8 bg-neon-lime"></span>
+                                <span class="w-4 h-4 bg-neon-lime rounded-full border-2 border-black flex items-center justify-center">
+                                    <i data-lucide="plus" class="w-3 h-3 text-black"></i>
+                                </span>
+                            </div>
+                            <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block w-48 p-3 rounded-xl glass-card text-xs text-white z-40 text-center pointer-events-none shadow-xl border border-neon-lime/30">
+                                <p class="font-bold text-neon-lime">Soporte ExoLock</p>
+                                <p class="text-[10px] text-gray-300">Estabilidad anatómica</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- STATS / HIGHLIGHTS BAR -->
+        <section class="border-y border-white/10 bg-dark-800/50 py-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <p class="text-3xl font-black text-white">185g</p>
+                    <p class="text-xs text-gray-400 uppercase tracking-wider mt-1">Peso Ultra Ligero</p>
+                </div>
+                <div>
+                    <p class="text-3xl font-black text-neon-lime">+88%</p>
+                    <p class="text-xs text-gray-400 uppercase tracking-wider mt-1">Retorno de Energía</p>
+                </div>
+                <div>
+                    <p class="text-3xl font-black text-white">100%</p>
+                    <p class="text-xs text-gray-400 uppercase tracking-wider mt-1">Materiales Reciclados</p>
+                </div>
+                <div>
+                    <p class="text-3xl font-black text-white">4.9 ★</p>
+                    <p class="text-xs text-gray-400 uppercase tracking-wider mt-1">+2,500 Reseñas VIP</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: CATALOG & COLLECTIONS -->
+        <section id="collections" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div>
+                    <span class="text-xs font-bold text-neon-lime uppercase tracking-widest">Catálogo Premium</span>
+                    <h2 class="text-3xl sm:text-5xl font-black tracking-tight mt-1">COLECCIONES EXCLUSIVAS</h2>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="flex flex-wrap gap-2" id="category-filters">
+                    <button onclick="filterProducts('all')" class="filter-btn active px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-neon-lime text-black transition-all">Todos</button>
+                    <button onclick="filterProducts('running')" class="filter-btn px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 transition-all">Running</button>
+                    <button onclick="filterProducts('lifestyle')" class="filter-btn px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 transition-all">Urban / Lifestyle</button>
+                    <button onclick="filterProducts('basketball')" class="filter-btn px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 transition-all">Basketball</button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Product cards injected via JS -->
+            </div>
+        </section>
+
+        <!-- SECTION 3: VISUAL CUSTOMIZER / PERSONALIZADOR INTERACTIVO -->
+        <section id="customizer" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/10">
+            <div class="glass-card rounded-3xl p-6 lg:p-12 border border-white/10 relative overflow-hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left: Customizer Controls -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div>
+                            <span class="text-xs font-bold text-neon-lime uppercase tracking-widest">Estudio de Diseño VELOCITY</span>
+                            <h2 class="text-3xl sm:text-4xl font-black tracking-tight mt-1">PERSONALIZA TU ZAPATILLA</h2>
+                            <p class="text-gray-400 text-sm mt-2">Diseña cada elemento a tu medida. Producción personalizada en 5 días.</p>
+                        </div>
+
+                        <!-- Step 1: Sole Color -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">1. Color de la Suela</label>
+                            <div class="flex gap-3">
+                                <button onclick="setCustomPart('sole', '#CCFF00')" class="w-8 h-8 rounded-full bg-[#CCFF00] border-2 border-white/20 focus:scale-110 transition-transform"></button>
+                                <button onclick="setCustomPart('sole', '#00F0FF')" class="w-8 h-8 rounded-full bg-[#00F0FF] border-2 border-white/20 focus:scale-110 transition-transform"></button>
+                                <button onclick="setCustomPart('sole', '#FF5500')" class="w-8 h-8 rounded-full bg-[#FF5500] border-2 border-white/20 focus:scale-110 transition-transform"></button>
+                                <button onclick="setCustomPart('sole', '#FFFFFF')" class="w-8 h-8 rounded-full bg-white border-2 border-white/20 focus:scale-110 transition-transform"></button>
+                                <button onclick="setCustomPart('sole', '#111111')" class="w-8 h-8 rounded-full bg-black border-2 border-white/20 focus:scale-110 transition-transform"></button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Upper Mesh Color -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">2. Capellada / Malla Principal</label>
+                            <div class="flex gap-3">
+                                <button onclick="setCustomPart('upper', '#1A1D24')" class="w-8 h-8 rounded-full bg-[#1A1D24] border-2 border-white/20 focus:scale-110 transition-transform"></button>
+                                <button onclick="setCustomPart('upper', '#E5E7EB')" class="w-8 h-8 rounded-full bg-[#E5E7EB] border-2 border-white/20 focus:scale-110 transition-transform"></button>
+                                <button onclick="setCustomPart('upper', '#1E3A8A')" class="w-8 h-8 rounded-full bg-[#1E3A8A] border-2 border-white/20 focus:scale-110 transition-transform"></button>
+                                <button onclick="setCustomPart('upper', '#831843')" class="w-8 h-8 rounded-full bg-[#831843] border-2 border-white/20 focus:scale-110 transition-transform"></button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Laces Accent -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">3. Cordones & Acentos</label>
+                            <div class="flex gap-3">
+                                <button onclick="setCustomPart('laces', '#CCFF00')" class="w-8 h-8 rounded-full bg-[#CCFF00] border-2 border-white/20 focus:scale-110 transition-transform"></button>
+                                <button onclick="setCustomPart('laces', '#FFFFFF')" class="w-8 h-8 rounded-full bg-white border-2 border-white/20 focus:scale-110 transition-transform"></button>
+                                <button onclick="setCustomPart('laces', '#000000')" class="w-8 h-8 rounded-full bg-black border-2 border-white/20 focus:scale-110 transition-transform"></button>
+                            </div>
+                        </div>
+
+                        <!-- Custom Text Engraving -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">4. Grabado Láser Personalizado (Máx 6 letras)</label>
+                            <input type="text" id="custom-text-input" maxlength="6" oninput="updateCustomText(this.value)" placeholder="EJ: VeloX" class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-neon-lime">
+                        </div>
+
+                        <!-- Price & Add Custom to Cart -->
+                        <div class="pt-4 flex items-center justify-between border-t border-white/10">
+                            <div>
+                                <p class="text-xs text-gray-400">Precio de Edición Especial:</p>
+                                <p class="text-2xl font-black text-white">Q2,150.00</p>
+                            </div>
+                            <button onclick="addCustomToCart()" class="px-6 py-3.5 bg-white text-black font-bold rounded-xl hover:bg-neon-lime transition-all flex items-center gap-2">
+                                <i data-lucide="palette" class="w-4 h-4"></i>
+                                <span>Añadir Mi Diseño</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right: Dynamic Visual Canvas Preview -->
+                    <div class="lg:col-span-7 flex flex-col items-center justify-center relative min-h-[350px]">
+                        <div class="relative w-full max-w-md aspect-square flex items-center justify-center">
+                            
+                            <!-- SVG Interactive Shoe Illustration -->
+                            <svg id="customizer-svg" viewBox="0 0 500 300" class="w-full h-auto drop-shadow-2xl transition-all duration-300">
+                                <!-- Base Sole -->
+                                <path id="svg-sole" d="M 50 220 C 120 250, 380 250, 450 210 C 460 200, 440 180, 400 185 C 330 190, 150 190, 50 220 Z" fill="#CCFF00" />
+                                <!-- Upper Body -->
+                                <path id="svg-upper" d="M 80 215 C 100 150, 200 100, 300 120 C 360 130, 410 170, 420 195 C 350 190, 150 195, 80 215 Z" fill="#1A1D24" />
+                                <!-- Laces -->
+                                <path id="svg-laces" d="M 220 130 L 260 160 M 240 125 L 280 155 M 260 120 L 300 150" stroke="#CCFF00" stroke-width="6" stroke-linecap="round" />
+                                <!-- Brand Swoosh Accent -->
+                                <path id="svg-logo" d="M 180 170 C 230 140, 300 150, 340 175 C 300 180, 220 180, 180 170 Z" fill="#FFFFFF" opacity="0.9"/>
+                                <!-- Engraved Text Holder -->
+                                <text id="svg-text" x="380" y="200" fill="#FFFFFF" font-size="14" font-weight="bold" font-family="sans-serif">VELOX</text>
+                            </svg>
+
+                        </div>
+                        <p class="text-xs text-gray-500 mt-4 flex items-center gap-1">
+                            <i data-lucide="info" class="w-3.5 h-3.5"></i>
+                            Vista de renderizado 2D en tiempo real.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: INNOVATION & SUSTAINABILITY -->
+        <section id="technology" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold text-neon-lime uppercase tracking-widest">Ingeniería del Futuro</span>
+                <h2 class="text-3xl sm:text-5xl font-black tracking-tight mt-1">TECNOLOGÍA REVOLUCIONARIA</h2>
+                <p class="text-gray-400 mt-4">Combinamos ciencia de materiales espaciales con procesos sostenibles de huella de carbono cero.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Tech Card 1 -->
+                <div class="glass-card p-8 rounded-3xl space-y-4 hover:border-neon-lime/40 transition-all group">
+                    <div class="w-14 h-14 rounded-2xl bg-neon-lime/10 flex items-center justify-center text-neon-lime group-hover:scale-110 transition-transform">
+                        <i data-lucide="cpu" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Suela CyberCushion™</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Matriz de polímeros impresos en 3D que absorbe impactos de hasta 10G y devuelve energía de forma constante.</p>
+                </div>
+
+                <!-- Tech Card 2 -->
+                <div class="glass-card p-8 rounded-3xl space-y-4 hover:border-neon-lime/40 transition-all group">
+                    <div class="w-14 h-14 rounded-2xl bg-neon-cyan/10 flex items-center justify-center text-neon-cyan group-hover:scale-110 transition-transform">
+                        <i data-lucide="leaf" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Ecothread 100% Reciclado</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Fabricados con plásticos marinos recuperados del océano y procesados en hilos de alta densidad estructural.</p>
+                </div>
+
+                <!-- Tech Card 3 -->
+                <div class="glass-card p-8 rounded-3xl space-y-4 hover:border-neon-lime/40 transition-all group">
+                    <div class="w-14 h-14 rounded-2xl bg-neon-orange/10 flex items-center justify-center text-neon-orange group-hover:scale-110 transition-transform">
+                        <i data-lucide="wind" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Aerodinámica VeloFlow</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Diseñado en túnel de viento para reducir la resistencia del aire en carreras de velocidad de élite.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: AMBASSADORS / TESTIMONIALS -->
+        <section id="ambassadors" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/10">
+            <div class="flex flex-col md:flex-row items-center justify-between mb-12">
+                <div>
+                    <span class="text-xs font-bold text-neon-lime uppercase tracking-widest">Atletas de Élite</span>
+                    <h2 class="text-3xl sm:text-4xl font-black tracking-tight mt-1">EMBAJADORES VELOCITY</h2>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Athlete 1 -->
+                <div class="glass-card rounded-3xl overflow-hidden group">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80" alt="Atleta" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent"></div>
+                        <span class="absolute bottom-4 left-4 text-xs font-bold bg-neon-lime text-black px-3 py-1 rounded-full">Maratonista Olímpico</span>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-lg font-bold">Marcus Vance</p>
+                        <p class="text-xs text-gray-400 mt-1">"La ligereza de la placa de carbono me dio la ventaja competitiva para batir mi récord personal."</p>
+                    </div>
+                </div>
+
+                <!-- Athlete 2 -->
+                <div class="glass-card rounded-3xl overflow-hidden group">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" alt="Atleta" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent"></div>
+                        <span class="absolute bottom-4 left-4 text-xs font-bold bg-neon-cyan text-black px-3 py-1 rounded-full">Sprinter 100m</span>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-lg font-bold">Elena Rostova</p>
+                        <p class="text-xs text-gray-400 mt-1">"Un ajuste anatómico impecable. Sientes la tracción desde el primer milisegundo en la pista."</p>
+                    </div>
+                </div>
+
+                <!-- Athlete 3 -->
+                <div class="glass-card rounded-3xl overflow-hidden group">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80" alt="Atleta" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent"></div>
+                        <span class="absolute bottom-4 left-4 text-xs font-bold bg-neon-orange text-black px-3 py-1 rounded-full">Street Culture Icon</span>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-lg font-bold">Kai Tanaka</p>
+                        <p class="text-xs text-gray-400 mt-1">"No solo rinden al máximo, sino que el diseño futurista llama la atención en cualquier lugar."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: VIP NEWSLETTER -->
+        <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="glass-card rounded-3xl p-8 sm:p-14 text-center relative overflow-hidden bg-gradient-to-br from-dark-800 to-dark-900 border border-white/10">
+                <div class="max-w-2xl mx-auto space-y-6">
+                    <span class="text-xs font-bold text-neon-lime uppercase tracking-widest">Club Privado VELOCITY VIP</span>
+                    <h2 class="text-3xl sm:text-5xl font-black tracking-tight">ACCESO ANTICIPADO A DROPS LIMITADOS</h2>
+                    <p class="text-gray-400 text-sm sm:text-base">Únete a nuestra lista VIP para recibir notificaciones 24 horas antes de cada lanzamiento exclusivo.</p>
+                    
+                    <form onsubmit="handleVIPSubscribe(event)" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                        <input type="email" required placeholder="Ingresa tu correo electrónico..." class="flex-1 bg-dark-900 border border-white/10 rounded-2xl px-5 py-4 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-neon-lime">
+                        <button type="submit" class="px-8 py-4 bg-neon-lime text-black font-bold rounded-2xl hover:bg-lime-400 transition-all flex items-center justify-center gap-2">
+                            <span>Unirme VIP</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+                    <p id="vip-status-msg" class="text-xs text-neon-lime hidden">¡Te has registrado con éxito al Club VIP!</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- QUICK VIEW PRODUCT MODAL -->
+    <div id="quickview-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="glass-card bg-dark-900 w-full max-w-4xl rounded-3xl border border-white/15 overflow-hidden max-h-[90vh] overflow-y-auto relative">
+            <button onclick="closeQuickView()" class="absolute top-4 right-4 z-10 p-2 bg-white/10 rounded-full hover:bg-white/20 text-white">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 p-6 sm:p-8">
+                <!-- Modal Product Image -->
+                <div class="flex items-center justify-center bg-dark-800 rounded-2xl p-6">
+                    <img id="qv-img" src="" alt="Product Quick View" class="w-full h-auto object-contain max-h-80 drop-shadow-xl">
+                </div>
+
+                <!-- Modal Info & Controls -->
+                <div class="space-y-6 flex flex-col justify-between">
+                    <div>
+                        <span id="qv-badge" class="text-xs font-bold px-3 py-1 bg-neon-lime/20 text-neon-lime rounded-full uppercase tracking-wider">Nuevo</span>
+                        <h3 id="qv-title" class="text-2xl sm:text-3xl font-black mt-2">Product Title</h3>
+                        <p id="qv-price" class="text-2xl font-bold text-neon-lime mt-2">Q0.00</p>
+                        <p id="qv-desc" class="text-gray-400 text-sm mt-3 leading-relaxed">Descripción detallada del producto.</p>
+                    </div>
+
+                    <!-- Size Selector -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">Seleccionar Talla (US)</label>
+                        <div class="grid grid-cols-5 gap-2" id="qv-sizes">
+                            <button onclick="selectQVSize(this)" class="qv-size-btn py-2 border border-white/15 rounded-xl text-sm font-bold hover:border-neon-lime">8</button>
+                            <button onclick="selectQVSize(this)" class="qv-size-btn py-2 border border-white/15 rounded-xl text-sm font-bold hover:border-neon-lime active">8.5</button>
+                            <button onclick="selectQVSize(this)" class="qv-size-btn py-2 border border-white/15 rounded-xl text-sm font-bold hover:border-neon-lime">9</button>
+                            <button onclick="selectQVSize(this)" class="qv-size-btn py-2 border border-white/15 rounded-xl text-sm font-bold hover:border-neon-lime">9.5</button>
+                            <button onclick="selectQVSize(this)" class="qv-size-btn py-2 border border-white/15 rounded-xl text-sm font-bold hover:border-neon-lime">10</button>
+                        </div>
+                    </div>
+
+                    <!-- Add to Cart Modal Button -->
+                    <button id="qv-add-btn" class="w-full py-4 bg-neon-lime text-black font-bold rounded-2xl hover:bg-lime-400 transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                        <span>Añadir al Carrito</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE-OVER SHOPPING CART DRAWER -->
+    <div id="cart-drawer-overlay" onclick="toggleCartModal()" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+    
+    <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-dark-900 border-l border-white/10 z-50 transform translate-x-full transition-transform duration-300 flex flex-col justify-between shadow-2xl">
+        <!-- Cart Header -->
+        <div class="p-6 border-b border-white/10 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <i data-lucide="shopping-bag" class="w-6 h-6 text-neon-lime"></i>
+                <h3 class="text-xl font-black">TU CARRITO</h3>
+            </div>
+            <button onclick="toggleCartModal()" class="p-2 rounded-full hover:bg-white/10 text-gray-400 hover:text-white">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <!-- Free Shipping Progress Bar -->
+        <div class="px-6 py-4 bg-dark-800 border-b border-white/5">
+            <div class="flex justify-between text-xs mb-1">
+                <span id="shipping-msg" class="text-gray-300">Añade Q750.00 más para Envío Gratis</span>
+                <span id="shipping-pct" class="font-bold text-neon-lime">0%</span>
+            </div>
+            <div class="w-full bg-dark-900 rounded-full h-2 overflow-hidden">
+                <div id="shipping-bar" class="bg-neon-lime h-full w-0 transition-all duration-500"></div>
+            </div>
+        </div>
+
+        <!-- Cart Items List Container -->
+        <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+            <!-- Dynamic Items Injected Here -->
+        </div>
+
+        <!-- Cart Footer / Summary -->
+        <div class="p-6 border-t border-white/10 bg-dark-800/80 space-y-4">
+            <div class="space-y-2 text-sm">
+                <div class="flex justify-between text-gray-400">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal">Q0.00</span>
+                </div>
+                <div class="flex justify-between text-gray-400">
+                    <span>Envío</span>
+                    <span id="cart-shipping">Calculando...</span>
+                </div>
+                <div class="flex justify-between text-lg font-black text-white pt-2 border-t border-white/10">
+                    <span>Total</span>
+                    <span id="cart-total" class="text-neon-lime">Q0.00</span>
+                </div>
+            </div>
+
+            <button onclick="processCheckout()" class="w-full py-4 bg-neon-lime text-black font-bold rounded-2xl hover:bg-lime-400 transition-all flex items-center justify-center gap-2 shadow-lg shadow-neon-lime/20">
+                <i data-lucide="credit-card" class="w-5 h-5"></i>
+                <span>Proceder al Pago</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- TOAST NOTIFICATION FLOATING -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/10 bg-dark-900 pt-16 pb-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+            <!-- Brand Info -->
+            <div class="space-y-4">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-neon-lime rounded-lg flex items-center justify-center">
+                        <i data-lucide="zap" class="w-5 h-5 text-black"></i>
+                    </div>
+                    <span class="text-lg font-black">VELOCITY LUXE</span>
+                </div>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                    Pioneros en calzado de alta ingeniería que une velocidad, lujo y sostenibilidad para la próxima generación urbana.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h4 class="text-xs font-bold uppercase tracking-widest text-neon-lime mb-4">Explorar</h4>
+                <ul class="space-y-2 text-xs text-gray-400">
+                    <li><a href="#hero" class="hover:text-white">Lanzamientos 2026</a></li>
+                    <li><a href="#collections" class="hover:text-white">Colección Hombre</a></li>
+                    <li><a href="#collections" class="hover:text-white">Colección Mujer</a></li>
+                    <li><a href="#customizer" class="hover:text-white">Estudio de Diseño 3D</a></li>
+                </ul>
+            </div>
+
+            <!-- Support -->
+            <div>
+                <h4 class="text-xs font-bold uppercase tracking-widest text-neon-lime mb-4">Soporte VIP</h4>
+                <ul class="space-y-2 text-xs text-gray-400">
+                    <li><a href="#" class="hover:text-white">Seguimiento de Pedido</a></li>
+                    <li><a href="#" class="hover:text-white">Guía de Tallas</a></li>
+                    <li><a href="#" class="hover:text-white">Garantía de Rendimiento</a></li>
+                    <li><a href="#" class="hover:text-white">Contacto Directo</a></li>
+                </ul>
+            </div>
+
+            <!-- Socials & Language -->
+            <div>
+                <h4 class="text-xs font-bold uppercase tracking-widest text-neon-lime mb-4">Síguenos</h4>
+                <div class="flex gap-3 text-gray-400 mb-6">
+                    <a href="#" class="p-2 glass-card rounded-xl hover:text-neon-lime"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                    <a href="#" class="p-2 glass-card rounded-xl hover:text-neon-lime"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+                    <a href="#" class="p-2 glass-card rounded-xl hover:text-neon-lime"><i data-lucide="youtube" class="w-4 h-4"></i></a>
+                </div>
+                <div class="text-xs text-gray-500">
+                    <span>Región: Guatemala (GTQ Q)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4">
+            <p>© 2026 VELOCITY LUXE Footwear Inc. Todos los derechos reservados.</p>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-gray-400">Términos</a>
+                <a href="#" class="hover:text-gray-400">Privacidad</a>
+                <a href="#" class="hover:text-gray-400">Cookies</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT APPLICATION CORE -->
+    <script>
+        // Hero Variants Data
+        const heroVariants = [
+            {
+                id: 'hero-1',
+                badge: 'Edición Limitada 2026',
+                title: 'VELOCITY ALPHA X',
+                desc: 'Placa de fibra de carbono ultra reactiva combinada con nuestra malla VeloMesh termorreguladora.',
+                price: 1890.00,
+                colorName: 'Neon Lime / Cyber Black',
+                image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1000&q=80',
+                accentColor: '#CCFF00',
+                glowClass: 'glow-neon-lime'
+            },
+            {
+                id: 'hero-2',
+                badge: 'Lanzamiento Especial',
+                title: 'CYBER RUNNER PRO',
+                desc: 'Diseñado para corredores nocturnos con detalles reflectantes de alta visibilidad y amortiguación Gel-Pro.',
+                price: 2050.00,
+                colorName: 'Electric Cyan / Midnight',
+                image: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=1000&q=80',
+                accentColor: '#00F0FF',
+                glowClass: 'glow-neon-cyan'
+            },
+            {
+                id: 'hero-3',
+                badge: 'Serie Limitada',
+                title: 'AURA PHANTOM 3D',
+                desc: 'Estructura minimalista de una sola pieza tejida con polímeros reciclados de alta densidad.',
+                price: 1750.00,
+                colorName: 'Solar Flare / Pure White',
+                image: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=1000&q=80',
+                accentColor: '#FF5500',
+                glowClass: 'glow-neon-orange'
+            }
+        ];
+
+        // Products Catalog Data
+        const productsData = [
+            {
+                id: 'prod-1',
+                title: 'Velocity Alpha X',
+                category: 'running',
+                badge: 'Trending',
+                price: 1890.00,
+                desc: 'Rendimiento máximo con placa de carbono y tracción multidireccional.',
+                image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80',
+                colors: ['#CCFF00', '#000000', '#FFFFFF']
+            },
+            {
+                id: 'prod-2',
+                title: 'Cyber Runner Pro',
+                category: 'running',
+                badge: 'Nuevo',
+                price: 2050.00,
+                desc: 'Tecnología de gel distribuida estratégicamente para absorber impactos.',
+                image: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80',
+                colors: ['#00F0FF', '#111111']
+            },
+            {
+                id: 'prod-3',
+                title: 'Aura Phantom Street',
+                category: 'lifestyle',
+                badge: 'Popular',
+                price: 1550.00,
+                desc: 'Estilo urbano futurista con comodidad ergonómica durante todo el día.',
+                image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80',
+                colors: ['#FFFFFF', '#888888']
+            },
+            {
+                id: 'prod-4',
+                title: 'HyperHoop Carbon',
+                category: 'basketball',
+                badge: 'Exclusivo',
+                price: 2200.00,
+                desc: 'Soporte de tobillo reforzado y respuesta de salto optimizada.',
+                image: 'https://images.unsplash.com/photo-1579338559194-a162d19bf842?auto=format&fit=crop&w=800&q=80',
+                colors: ['#FF5500', '#000000']
+            },
+            {
+                id: 'prod-5',
+                title: 'VeloGlide Stealth',
+                category: 'lifestyle',
+                badge: 'Limitado',
+                price: 1790.00,
+                desc: 'Diseño monócromo con acabados mates y detalles reflectantes.',
+                image: 'https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=800&q=80',
+                colors: ['#1A1A1A', '#333333']
+            },
+            {
+                id: 'prod-6',
+                title: 'Quantum Surge 2.0',
+                category: 'running',
+                badge: 'Pro',
+                price: 1950.00,
+                desc: 'Malla transpirable sin costuras para evitar fricciones en largas distancias.',
+                image: 'https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=800&q=80',
+                colors: ['#CCFF00', '#00F0FF']
+            }
+        ];
+
+        // State Store
+        let currentHeroIndex = 0;
+        let cartState = [];
+        let customizerState = {
+            sole: '#CCFF00',
+            upper: '#1A1D24',
+            laces: '#CCFF00',
+            text: 'VELOX'
+        };
+        let selectedQVProduct = null;
+        let selectedQVSize = '9';
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // Render Lucide Icons
+            lucide.createIcons();
+
+            // Initialize Hero Variant Buttons
+            renderHeroVariants();
+
+            // Render Product Grid
+            renderProducts(productsData);
+
+            // Set up Sticky Header Blur Scroll Effect
+            window.addEventListener('scroll', () => {
+                const header = document.getElementById('main-header');
+                if (window.scrollY > 50) {
+                    header.classList.add('py-2', 'bg-dark-900/95');
+                } else {
+                    header.classList.remove('py-2', 'bg-dark-900/95');
+                }
+            });
+        });
+
+        function renderHeroVariants() {
+            const container = document.getElementById('hero-variant-selector');
+            container.innerHTML = heroVariants.map((variant, index) => `
+                <button onclick="switchHeroVariant(${index})" class="w-10 h-10 rounded-full border-2 transition-all p-0.5 ${index === currentHeroIndex ? 'border-neon-lime scale-110' : 'border-white/20 opacity-60 hover:opacity-100'}">
+                    <span class="block w-full h-full rounded-full" style="background-color: ${variant.accentColor}"></span>
+                </button>
+            `).join('');
+        }
+
+        function switchHeroVariant(index) {
+            currentHeroIndex = index;
+            const data = heroVariants[index];
+
+            // Animate transition
+            const shoeImg = document.getElementById('hero-shoe-img');
+            shoeImg.classList.add('opacity-0', 'scale-95');
+
+            setTimeout(() => {
+                document.getElementById('hero-badge').innerText = data.badge;
+                document.getElementById('hero-title').innerHTML = `${data.title.split(' ')[0]} <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-600">${data.title.split(' ').slice(1).join(' ')}</span>`;
+                document.getElementById('hero-desc').innerText = data.desc;
+                document.getElementById('hero-price').innerText = `Q${data.price.toFixed(2)}`;
+                shoeImg.src = data.image;
+
+                // Update Glow
+                const bgGlow = document.getElementById('hero-bg-glow');
+                bgGlow.style.backgroundColor = data.accentColor;
+
+                shoeImg.classList.remove('opacity-0', 'scale-95');
+                renderHeroVariants();
+            }, 300);
+        }
+
+        function addHeroToCart() {
+            const variant = heroVariants[currentHeroIndex];
+            addToCart({
+                id: variant.id,
+                title: variant.title,
+                price: variant.price,
+                image: variant.image,
+                size: '9.5',
+                qty: 1
+            });
+        }
+
+        function showHotspotInfo(title, text) {
+            showToast(`${title}: ${text}`);
+        }
+
+        function renderProducts(items) {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = items.map(product => `
+                <div class="glass-card rounded-3xl p-5 flex flex-col justify-between group transition-all duration-300 hover:-translate-y-2">
+                    <div>
+                        <!-- Card Image -->
+                        <div class="relative bg-dark-800 rounded-2xl p-4 mb-4 overflow-hidden flex items-center justify-center min-h-[200px]">
+                            <span class="absolute top-3 left-3 text-[10px] font-bold uppercase tracking-wider bg-white/10 backdrop-blur-md px-3 py-1 rounded-full text-white border border-white/10">${product.badge}</span>
+                            <img src="${product.image}" alt="${product.title}" class="w-full h-auto object-contain max-h-44 group-hover:scale-110 transition-transform duration-500">
+                            <!-- Quick View Overlay Button -->
+                            <button onclick="openQuickView('${product.id}')" class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-xs font-bold text-white backdrop-blur-xs">
+                                <i data-lucide="eye" class="w-4 h-4"></i> Vista Previa
+                            </button>
+                        </div>
+
+                        <!-- Card Info -->
+                        <h3 class="font-bold text-lg text-white group-hover:text-neon-lime transition-colors">${product.title}</h3>
+                        <p class="text-xs text-gray-400 mt-1 line-clamp-2">${product.desc}</p>
+                    </div>
+
+                    <!-- Price & Actions -->
+                    <div class="pt-4 mt-4 border-t border-white/5 flex items-center justify-between">
+                        <span class="text-xl font-black text-white">Q${product.price.toFixed(2)}</span>
+                        <button onclick="quickAddToCart('${product.id}')" class="p-3 bg-neon-lime text-black rounded-xl hover:bg-lime-400 transition-all shadow-md">
+                            <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function filterProducts(category) {
+            // Update Active Filter UI
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-neon-lime', 'text-black', 'active');
+                btn.classList.add('bg-white/5', 'text-gray-300');
+            });
+            event.target.classList.add('bg-neon-lime', 'text-black', 'active');
+            event.target.classList.remove('bg-white/5', 'text-gray-300');
+
+            if (category === 'all') {
+                renderProducts(productsData);
+            } else {
+                const filtered = productsData.filter(p => p.category === category);
+                renderProducts(filtered);
+            }
+        }
+
+        function openQuickView(productId) {
+            const product = productsData.find(p => p.id === productId);
+            if (!product) return;
+
+            selectedQVProduct = product;
+            document.getElementById('qv-img').src = product.image;
+            document.getElementById('qv-title').innerText = product.title;
+            document.getElementById('qv-badge').innerText = product.badge;
+            document.getElementById('qv-price').innerText = `Q${product.price.toFixed(2)}`;
+            document.getElementById('qv-desc').innerText = product.desc;
+
+            // Setup Add button
+            document.getElementById('qv-add-btn').onclick = () => {
+                addToCart({
+                    id: product.id,
+                    title: product.title,
+                    price: product.price,
+                    image: product.image,
+                    size: selectedQVSize,
+                    qty: 1
+                });
+                closeQuickView();
+            };
+
+            const modal = document.getElementById('quickview-modal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closeQuickView() {
+            const modal = document.getElementById('quickview-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function selectQVSize(btn) {
+            document.querySelectorAll('.qv-size-btn').forEach(b => b.classList.remove('border-neon-lime', 'text-neon-lime'));
+            btn.classList.add('border-neon-lime', 'text-neon-lime');
+            selectedQVSize = btn.innerText;
+        }
+
+        function quickAddToCart(productId) {
+            const product = productsData.find(p => p.id === productId);
+            if (product) {
+                addToCart({
+                    id: product.id,
+                    title: product.title,
+                    price: product.price,
+                    image: product.image,
+                    size: '9',
+                    qty: 1
+                });
+            }
+        }
+
+        function setCustomPart(part, color) {
+            customizerState[part] = color;
+            if (part === 'sole') {
+                document.getElementById('svg-sole').setAttribute('fill', color);
+            } else if (part === 'upper') {
+                document.getElementById('svg-upper').setAttribute('fill', color);
+            } else if (part === 'laces') {
+                document.getElementById('svg-laces').setAttribute('stroke', color);
+            }
+        }
+
+        function updateCustomText(val) {
+            customizerState.text = val.toUpperCase() || 'VELOX';
+            document.getElementById('svg-text').textContent = customizerState.text;
+        }
+
+        function addCustomToCart() {
+            addToCart({
+                id: 'custom-' + Date.now(),
+                title: `Velocity Custom (${customizerState.text})`,
+                price: 2150.00,
+                image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80',
+                size: '9.5',
+                qty: 1
+            });
+        }
+
+        function toggleCartModal() {
+            const drawer = document.getElementById('cart-drawer');
+            const overlay = document.getElementById('cart-drawer-overlay');
+
+            drawer.classList.toggle('translate-x-full');
+            overlay.classList.toggle('opacity-0');
+            overlay.classList.toggle('pointer-events-none');
+        }
+
+        function addToCart(item) {
+            const existingIndex = cartState.findIndex(i => i.id === item.id && i.size === item.size);
+            if (existingIndex > -1) {
+                cartState[existingIndex].qty += item.qty;
+            } else {
+                cartState.push(item);
+            }
+
+            updateCartUI();
+            showToast(`Añadido: ${item.title}`);
+
+            // Open Cart Drawer
+            const drawer = document.getElementById('cart-drawer');
+            if (drawer.classList.contains('translate-x-full')) {
+                toggleCartModal();
+            }
+        }
+
+        function updateCartQty(index, change) {
+            cartState[index].qty += change;
+            if (cartState[index].qty <= 0) {
+                cartState.splice(index, 1);
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const totalBadge = document.getElementById('cart-count-badge');
+            
+            // Total items count
+            const totalItems = cartState.reduce((sum, item) => sum + item.qty, 0);
+            totalBadge.innerText = totalItems;
+            if (totalItems > 0) {
+                totalBadge.classList.remove('scale-0');
+            } else {
+                totalBadge.classList.add('scale-0');
+            }
+
+            // Render items
+            if (cartState.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-gray-500">
+                        <i data-lucide="shopping-bag" class="w-12 h-12 mx-auto mb-3 opacity-40"></i>
+                        <p class="text-sm font-medium">Tu carrito está vacío</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = cartState.map((item, index) => `
+                    <div class="glass-card p-4 rounded-2xl flex items-center gap-4">
+                        <img src="${item.image}" alt="${item.title}" class="w-16 h-16 object-contain bg-dark-800 rounded-xl p-1">
+                        <div class="flex-1 min-w-0">
+                            <h4 class="font-bold text-sm text-white truncate">${item.title}</h4>
+                            <p class="text-xs text-gray-400">Talla: ${item.size}</p>
+                            <p class="text-sm font-bold text-neon-lime mt-1">Q${(item.price * item.qty).toFixed(2)}</p>
+                        </div>
+                        <div class="flex items-center gap-2 bg-dark-800 rounded-xl p-1 border border-white/10">
+                            <button onclick="updateCartQty(${index}, -1)" class="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-white">-</button>
+                            <span class="text-xs font-bold px-1">${item.qty}</span>
+                            <button onclick="updateCartQty(${index}, 1)" class="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-white">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Subtotal & Shipping calculation in Quetzales
+            const subtotal = cartState.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const freeShippingThreshold = 750.00;
+            const progress = Math.min((subtotal / freeShippingThreshold) * 100, 100);
+
+            document.getElementById('cart-subtotal').innerText = `Q${subtotal.toFixed(2)}`;
+            document.getElementById('shipping-bar').style.width = `${progress}%`;
+            document.getElementById('shipping-pct').innerText = `${Math.round(progress)}%`;
+
+            if (subtotal >= freeShippingThreshold) {
+                document.getElementById('shipping-msg').innerText = '¡Felicidades! Tienes Envío Gratis';
+                document.getElementById('cart-shipping').innerText = 'GRATIS';
+                document.getElementById('cart-total').innerText = `Q${subtotal.toFixed(2)}`;
+            } else {
+                const diff = freeShippingThreshold - subtotal;
+                document.getElementById('shipping-msg').innerText = `Añade Q${diff.toFixed(2)} más para Envío Gratis`;
+                document.getElementById('cart-shipping').innerText = 'Q40.00';
+                document.getElementById('cart-total').innerText = `Q${(subtotal > 0 ? subtotal + 40 : 0).toFixed(2)}`;
+            }
+
+            lucide.createIcons();
+        }
+
+        function handleSearch(query) {
+            const container = document.getElementById('search-results');
+            if (!query.trim()) {
+                container.classList.add('hidden');
+                return;
+            }
+
+            const matches = productsData.filter(p => p.title.toLowerCase().includes(query.toLowerCase()) || p.category.toLowerCase().includes(query.toLowerCase()));
+            
+            if (matches.length > 0) {
+                container.innerHTML = matches.map(m => `
+                    <div onclick="openQuickView('${m.id}'); toggleSearchModal();" class="p-3 hover:bg-white/5 rounded-xl flex items-center justify-between cursor-pointer">
+                        <div class="flex items-center gap-3">
+                            <img src="${m.image}" class="w-10 h-10 object-contain bg-dark-900 rounded-lg">
+                            <span class="font-bold text-sm text-white">${m.title}</span>
+                        </div>
+                        <span class="text-xs font-bold text-neon-lime">Q${m.price.toFixed(2)}</span>
+                    </div>
+                `).join('');
+                container.classList.remove('hidden');
+            } else {
+                container.innerHTML = `<div class="p-4 text-xs text-gray-400 text-center">No se encontraron productos para "${query}"</div>`;
+                container.classList.remove('hidden');
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function handleVIPSubscribe(e) {
+            e.preventDefault();
+            document.getElementById('vip-status-msg').classList.remove('hidden');
+            showToast('¡Bienvenido al Club VIP VELOCITY!');
+        }
+
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'glass-card bg-dark-800 text-white text-xs font-bold px-4 py-3 rounded-2xl border border-neon-lime/40 shadow-xl flex items-center gap-2 animate-bounce pointer-events-auto';
+            toast.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-neon-lime"></i> ${message}`;
+            
+            container.appendChild(toast);
+            lucide.createIcons();
+
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
